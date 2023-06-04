@@ -1,10 +1,11 @@
 import {inject} from '@loopback/core';
 import {
+  HttpErrors,
   Request,
+  ResponseObject,
   RestBindings,
   get,
   response,
-  ResponseObject,
 } from '@loopback/rest';
 
 /**
@@ -51,5 +52,9 @@ export class PingController {
       url: this.req.url,
       headers: Object.assign({}, this.req.headers),
     };
+  }
+  @get('/error')
+  sendError() {
+    throw new HttpErrors[400]('Test');
   }
 }
