@@ -1,17 +1,18 @@
-import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig, createBindingFromClass} from '@loopback/core';
-import {RepositoryMixin} from '@loopback/repository';
-import {RestApplication} from '@loopback/rest';
+import { BootMixin } from '@loopback/boot';
+import { ApplicationConfig, createBindingFromClass } from '@loopback/core';
+import { RepositoryMixin } from '@loopback/repository';
+import { RestApplication } from '@loopback/rest';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
-import {ServiceMixin} from '@loopback/service-proxy';
+import { ServiceMixin } from '@loopback/service-proxy';
 import path from 'path';
-import {ErrorHandlerMiddlewareProvider} from './middleware/letad.error.middleware';
-import {MySequence} from './sequence';
+import { ErrorHandlerMiddlewareProvider } from './middleware/letad.error.middleware';
+import { MySequence } from './sequence';
+import * as dotenv from 'dotenv';
 
-export {ApplicationConfig};
+export { ApplicationConfig };
 
 export class Salud extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -31,6 +32,7 @@ export class Salud extends BootMixin(
     });
     this.component(RestExplorerComponent);
     this.add(createBindingFromClass(ErrorHandlerMiddlewareProvider));
+    dotenv.config();
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
